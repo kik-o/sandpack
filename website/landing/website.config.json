@@ -75,19 +75,19 @@
       {
         "name": "Twitter",
         "socialUrl": "https://twitter.com/codesandbox",
-        "description": "Lorem Ipsum is simply dummy of the printing and typesetting industry. Lorem Ipsum has.",
+        "description": " Sandpack wouldn’t exist without this fantastic community of developers. Follow us on Twitter to get the latest updates on Sandpack.",
         "logoUrl": "/assets/logos/Twitter.svg"
       },
       {
         "name": "Discord",
         "socialUrl": "https://discord.com/invite/5BpufEP7MH",
-        "description": "Lorem Ipsum is simply dummy of the printing and typesetting industry. Lorem Ipsum has.",
+        "description": "Our Discord community enables people worldwide to share tips, showcase their best thinking, and forge meaningful connections.",
         "logoUrl": "/assets/logos/Discord.svg"
       },
       {
         "name": "GitHub",
         "socialUrl": "https://github.com/codesandbox/sandpack",
-        "description": "Lorem Ipsum is simply dummy of the printing and typesetting industry. Lorem Ipsum has.",
+        "description": "We're always looking for contributors to help us fix bugs, build new features, or help us improve the project documentation. Definitely check our GitHub repository.",
         "logoUrl": "/assets/logos/GitHub.svg"
       }
     ]
