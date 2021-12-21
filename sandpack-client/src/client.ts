@@ -22,6 +22,10 @@ import {
 
 export interface ClientOptions {
   /**
+   * Paths to external resources
+   */
+  externalResources?: string[];
+  /**
    * Location of the bundler.
    */
   bundlerURL?: string;
@@ -62,6 +66,8 @@ export interface ClientOptions {
     isFile: (path: string) => Promise<boolean>;
     readFile: (path: string) => Promise<string>;
   };
+
+  reactDevTools?: boolean;
 }
 
 export interface SandboxInfo {
@@ -163,9 +169,11 @@ export class SandpackClient {
             "file-resolver",
             async (data: { m: "isFile" | "readFile"; p: string }) => {
               if (data.m === "isFile") {
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                 return this.options.fileResolver!.isFile(data.p);
               }
 
+              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
               return this.options.fileResolver!.readFile(data.p);
             },
             this.iframe.contentWindow
@@ -244,7 +252,9 @@ export class SandpackClient {
     try {
       packageJSON = JSON.parse(files["/package.json"].code);
     } catch (e) {
-      console.error("Could not parse package.json file: " + e.message);
+      console.error(
+        "Could not parse package.json file: " + (e as Error).message
+      );
     }
 
     // TODO move this to a common format
@@ -265,7 +275,8 @@ export class SandpackClient {
       version: 3,
       isInitializationCompile,
       modules,
-      externalResources: [],
+      reactDevTools: this.options.reactDevTools,
+      externalResources: this.options.externalResources || [],
       hasFileResolver: Boolean(this.options.fileResolver),
       disableDependencyPreprocessing:
         this.sandboxInfo.disableDependencyPreprocessing,
@@ -340,7 +351,7 @@ export class SandpackClient {
       this.dispatch({ type: "get-transpiler-context" });
     });
 
-  private getFiles() {
+  private getFiles(): SandpackBundlerFiles {
     const { sandboxInfo } = this;
 
     if (sandboxInfo.files["/package.json"] === undefined) {
@@ -355,7 +366,7 @@ export class SandpackClient {
     return this.sandboxInfo.files;
   }
 
-  private initializeElement() {
+  private initializeElement(): void {
     this.iframe.style.border = "0";
     this.iframe.style.width = this.options.width || "100%";
     this.iframe.style.height = this.options.height || "100%";

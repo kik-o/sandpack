@@ -7,6 +7,14 @@
     "3000": {
       "name": "Docs",
       "command": "yarn dev:docs"
+    },
+    "3001": {
+      "name": "Landing page",
+      "command": "yarn dev:landing"
+    },
+    "3002": {
+      "name": "Theme",
+      "command": "yarn dev:theme"
     }
   },
   "tasks": {
@@ -22,5 +30,15 @@
       "name": "Format Workspace",
       "command": "yarn format"
     }
-  }
+  },
+  "setupTasks": [
+    {
+      "name": "Installing Dependencies",
+      "command": "yarn install"
+    },
+    {
+      "name": "Building Workspace",
+      "command": "yarn build"
+    }
+  ]
 }

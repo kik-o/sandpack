@@ -1,4 +1,4 @@
-name: Release (Canary)
+name: Release (beta)
 
 on:
   push:
@@ -10,6 +10,7 @@ jobs:
     name: Build bundler
     if: github.event_name == 'push' && github.ref == 'refs/heads/next'
     runs-on: ubuntu-latest
+    timeout-minutes: 20
 
     steps:
       - name: Setup | Clone codesandbox-client

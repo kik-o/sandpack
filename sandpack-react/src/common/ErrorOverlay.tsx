@@ -3,7 +3,10 @@ import * as React from "react";
 
 import { useErrorMessage } from "../hooks/useErrorMessage";
 
-export const ErrorOverlay: React.FC = () => {
+/**
+ * @category Components
+ */
+export const ErrorOverlay = (): JSX.Element | null => {
   const errorMessage = useErrorMessage();
   const c = useClasser("sp");
 

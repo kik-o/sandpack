@@ -61,9 +61,8 @@ We can test this with the `CustomSandpack` we implemented at the previous step.
 
 If you run this, you will notice that the `SimpleCodeViewer` is in sync with the state of the `SandpackCodeEditor`.
 
-`useSandpack` also exports `dispatch` and `listen`, two functions with which you
-can directly communicate with the bundler. However, at this point, you'd have to
-understand all the different types of messages and payloads that are passed from
+`useSandpack` also exports `dispatch` and `listen`, you can levarage these functions for communicating directly with the bundler. However, at this point, you'd have
+understood all the different types of messages and payloads that are passed from
 the sandpack manager to the iframe and back.
 
 ```jsx
@@ -73,15 +72,19 @@ const CustomRefreshButton = () => {
   const { dispatch, listen } = useSandpack();
 
   const handleRefresh = () => {
-    // listens for any message dispatched between sandpack and the bundler
-    const stopListening = listen((message) => console.log(message));
-
     // sends the refresh message to the bundler, should be logged by the listener
     dispatch({ type: "refresh" });
-
-    // unsubscribe
-    stopListening();
   };
+
+  useEffect(() => {
+    // listens for any message dispatched between sandpack and the bundler
+    const stopListening = listen((msg) => console.log(msg));
+
+    return () => {
+      // unsubscribe
+      stopListening();
+    };
+  }, [listen]);
 
   return (
     <button type="button" onClick={handleRefresh}>
@@ -122,24 +125,6 @@ const CustomRefreshButton = () => {
     <button type="button" onClick={() => refresh()}>
       Refresh Sandpack
     </button>
-  );
-};
-```
-
-## useCodeSandboxLink
-
-Similarly, we can build a custom link that opens the sandpack files in a new tab
-on https://codesandbox.io. Let's the use `useCodeSandboxLink` for that:
-
-```jsx
-import { useCodeSandboxLink } from "@codesandbox/sandpack-react";
-
-const CustomOpenInCSB = () => {
-  const url = useCodeSandboxLink();
-  return (
-    <a href={url} target="_blank" rel="noopener noreferrer">
-      Open in CodeSandbox
-    </a>
   );
 };
 ```
