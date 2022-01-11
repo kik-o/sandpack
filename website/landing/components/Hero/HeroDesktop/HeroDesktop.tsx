@@ -22,11 +22,11 @@ export const HeroDesktop: React.FC = () => {
   const { sandpack } = useSandpack();
 
   const editorRef = useRef<CodeEditorRef>(null);
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const [sectionTop, setSectionTop] = useState(0);
-  const [sectionHeight, setSectionHeight] = useState(0);
+  const heroRef = useRef<HTMLDivElement>(null);
+  const [heroTop, setHeroTop] = useState(0);
+  const [heroHeight, setHeroHeight] = useState(0);
   const [scrollPosition, setScrollPosition] = useState(scrollY.get());
-  const scrollHeight = useMemo(() => sectionHeight / 3, [sectionHeight]);
+  const scrollHeight = useMemo(() => heroHeight / 3, [heroHeight]);
   const [animationComplete, setAnimationComplete] = useState(false);
   const isMounted = useRef(false);
 
@@ -34,84 +34,84 @@ export const HeroDesktop: React.FC = () => {
 
   useEffect(() => {
     const isAnimationComplete =
-      scrollPosition >= sectionTop + scrollHeight * 1.2 + 2;
+      scrollPosition >= heroTop + scrollHeight * 1.2 + 2;
 
     setAnimationComplete(isAnimationComplete);
-  }, [animationComplete, scrollHeight, scrollPosition, sectionTop]);
+  }, [animationComplete, scrollHeight, scrollPosition, heroTop]);
 
   // Push editor into view and adjust wrapper's border radius.
   const progress = useTransform(
     scrollY,
-    [sectionTop, sectionTop + scrollHeight],
+    [heroTop, heroTop + scrollHeight],
     [0, 1]
   );
 
   // Subtitle's opacity.
   const opacity = useTransform(
     scrollY,
-    [sectionTop + scrollHeight * 0.6, sectionTop + scrollHeight * 0.8],
+    [heroTop + scrollHeight * 0.6, heroTop + scrollHeight * 0.8],
     [1, 0]
   );
 
   // Push logo pieces into view.
   const progressInverse = useTransform(
     scrollY,
-    [sectionTop, sectionTop + scrollHeight],
+    [heroTop, heroTop + scrollHeight],
     [1, 0]
   );
 
   // Rotate logo.
   const rotate = useTransform(
     scrollY,
-    [sectionTop + scrollHeight * 0.9, sectionTop + scrollHeight * 1.1],
+    [heroTop + scrollHeight * 0.9, heroTop + scrollHeight * 1.1],
     [-90, 0]
   );
 
   // Scale down "fake" preview elements on scroll.
   const scale = useTransform(
     scrollY,
-    [sectionTop, sectionTop + scrollHeight],
+    [heroTop, heroTop + scrollHeight],
     [2.08, 1]
   );
 
   // Scale down the whole container on scroll.
   const containerScale = useTransform(
     scrollY,
-    [sectionTop, sectionTop + scrollHeight],
+    [heroTop, heroTop + scrollHeight],
     [1, 0.94]
   );
 
   // Sandpack dynamic preview opacity.
   const sandpackPreviewOpacity = useTransform(
     scrollY,
-    [sectionTop + scrollHeight * 1.2 + 1, sectionTop + scrollHeight * 1.2 + 2],
+    [heroTop + scrollHeight * 1.2 + 1, heroTop + scrollHeight * 1.2 + 2],
     [0, 1]
   );
 
   // Get dimensions
   useLayoutEffect(() => {
-    const hero = sectionRef.current;
+    const hero = heroRef.current;
     if (!hero) return;
 
     const onResize = (): void => {
       const updatedTop = hero.offsetTop;
-      setSectionTop(updatedTop);
+      setHeroTop(updatedTop);
 
       const updatedHeight = hero.offsetHeight;
-      setSectionHeight(updatedHeight);
+      setHeroHeight(updatedHeight);
     };
 
     onResize();
 
     window.addEventListener("resize", onResize);
     return (): void => window.removeEventListener("resize", onResize);
-  }, [sectionRef]);
+  }, [heroRef]);
 
   useLayoutEffect(() => {
     if (isMounted.current) return;
 
-    isMounted.current = !!sectionRef.current;
-  }, [sectionRef]);
+    isMounted.current = !!heroRef.current;
+  }, [heroRef]);
 
   useEffect(() => {
     const editorElement = editorRef.current?.getCodemirror();
@@ -137,7 +137,7 @@ export const HeroDesktop: React.FC = () => {
 
     const finishAnimation = (): void => {
       window.scrollTo({
-        top: sectionTop + scrollHeight * 1.2 + 2,
+        top: heroTop + scrollHeight * 1.2 + 2,
         behavior: "smooth",
       });
     };
@@ -162,7 +162,7 @@ export const HeroDesktop: React.FC = () => {
 
   return (
     <AnimatedBox
-      ref={sectionRef}
+      ref={heroRef}
       css={{ height: "200vh" }}
       style={
         {
