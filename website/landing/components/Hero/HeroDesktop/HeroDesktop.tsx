@@ -164,7 +164,6 @@ export const HeroDesktop: React.FC = () => {
     <AnimatedBox
       ref={sectionRef}
       css={{ height: "200vh" }}
-      id="container"
       style={
         {
           "--progress": isMounted ? progress : 0,
@@ -203,7 +202,6 @@ export const HeroDesktop: React.FC = () => {
             zIndex: -1,
           },
         }}
-        id="content"
       >
         <Box
           css={{
