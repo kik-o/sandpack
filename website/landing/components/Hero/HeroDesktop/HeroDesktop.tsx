@@ -71,7 +71,7 @@ export const HeroDesktop: React.FC = () => {
   const scale = useTransform(
     scrollY,
     [heroTop, heroTop + scrollHeight],
-    [2.08, 1]
+    [1, 0.5]
   );
 
   // Scale down the whole container on scroll.
@@ -289,12 +289,11 @@ export const HeroDesktop: React.FC = () => {
 
         <Box
           css={{
-            fontSize: "calc(100vw / 1920 * 10)",
+            fontSize: "calc((100vw / 1920 * 10) * 2.08)",
             fontFamily:
               "-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol",
             width: "50vw",
             padding: "1.8em 3.5em",
-            position: "relative",
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-between",
@@ -309,9 +308,11 @@ export const HeroDesktop: React.FC = () => {
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
-              position: "relative",
-
+              position: "absolute",
               width: "100%",
+              top: 0,
+              left: 0,
+
               transformOrigin: "top right",
               transform: "scale($scale)",
             }}
@@ -323,15 +324,21 @@ export const HeroDesktop: React.FC = () => {
           <Box
             css={{
               "$$logo-height": "18em",
+              "$$logo-width": "9em",
               "$$logo-margin": "-5em",
 
-              width: "calc(100%)",
-              height: "calc(1.15 * $$logo-height + -1 * (2 * $$logo-margin))",
+              width: "100%",
+              height: "calc(1.5 * $$logo-height)",
 
-              position: "relative",
-              overflow: "hidden",
+              position: "absolute",
+              top: 0,
+              bottom: 0,
+              left: 0,
               right: 0,
-              transformOrigin: "center right",
+              margin: "auto",
+
+              overflow: "hidden",
+              transformOrigin: "top right",
               transform: "scale($scale)",
 
               display: "flex",
@@ -339,64 +346,70 @@ export const HeroDesktop: React.FC = () => {
               justifyContent: "center",
             }}
           >
-            {/* Logo */}
-            <Box
-              css={{
-                display: "flex",
-                flexShrink: 0,
-                alignItems: "center",
-                justifyContent: "center",
+            <Box css={{ position: "relative" }}>
+              {/* Logo */}
+              <Box
+                css={{
+                  display: "flex",
+                  flexShrink: 0,
+                  alignItems: "center",
+                  justifyContent: "center",
 
-                width: "100%",
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%) rotate(calc($rotate * 1deg))",
-
-                "&::before, &::after": {
-                  boxSizing: "content-box",
-                  content: "''",
-                  display: "block",
-
-                  border: "2.4em solid $darkTextPrimary",
-                  width: "9em",
-                  height: "$$logo-height",
-                },
-
-                "&::before": {
-                  marginTop: "$$logo-margin",
-                  marginRight: "-1.1em",
+                  width: "100%",
+                  position: "absolute",
+                  top: "50%",
+                  left: "50%",
                   transform:
-                    "translateY(calc(-1 * ($progress-inverse * 100vw / 2)))",
-                },
+                    "translate(-50%, -50%) rotate(calc($rotate * 1deg))",
 
-                "&::after": {
-                  marginBottom: "$$logo-margin",
-                  marginLeft: "-1.1em",
-                  transform:
-                    "translateY(calc(1 * ($progress-inverse * 100vw / 2)))",
-                },
-              }}
-            />
+                  "&::before, &::after": {
+                    boxSizing: "content-box",
+                    content: "''",
+                    display: "block",
 
-            <Text
-              css={{
-                fontSize: "1.2em",
-                textAlign: "center",
-                opacity: "$opacity",
-              }}
-            >
-              A component toolkit for creating
-              <br /> live-running code editing experiences,
-              <br />
-              using the power of CodeSandbox.
-            </Text>
+                    border: "2.4em solid $darkTextPrimary",
+                    width: "$$logo-width",
+                    height: "$$logo-height",
+                  },
+
+                  "&::before": {
+                    marginTop: "$$logo-margin",
+                    marginRight: "-1.1em",
+                    transform:
+                      "translateY(calc(-1 * ($progress-inverse * 100vw)))",
+                  },
+
+                  "&::after": {
+                    marginBottom: "$$logo-margin",
+                    marginLeft: "-1.1em",
+                    transform:
+                      "translateY(calc(1 * ($progress-inverse * 100vw)))",
+                  },
+                }}
+              />
+
+              <Text
+                css={{
+                  fontSize: "calc(1.2em * 1)",
+                  textAlign: "center",
+                  opacity: "$opacity",
+                }}
+              >
+                A component toolkit for creating
+                <br /> live-running code editing experiences,
+                <br />
+                using the power of CodeSandbox.
+              </Text>
+            </Box>
           </Box>
 
           <Box
             css={{
-              display: "flex",
               width: "100%",
+              position: "absolute",
+              bottom: 0,
+              left: 0,
+              display: "flex",
               transform: "scale($scale)",
               transformOrigin: "bottom right",
             }}

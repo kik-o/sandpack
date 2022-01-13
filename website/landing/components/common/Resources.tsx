@@ -43,7 +43,8 @@ export const Resources: React.FC = () => {
                 letterSpacing: "-0.05em",
 
                 "@bp2": {
-                  fontSize: "2.4em",
+                  fontSize: `2.4em`,
+                  whiteSpace: "nowrap",
                 },
               }}
             >

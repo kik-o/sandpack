@@ -42,6 +42,7 @@ export const Clipboard: React.FC = () => {
 
           "@bp2": {
             fontSize: "2.4em",
+            whiteSpace: "nowrap",
           },
         }}
       >
