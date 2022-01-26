@@ -46,6 +46,7 @@ import { useSyntaxHighlight } from "./useSyntaxHighlight";
 import {
   getCodeMirrorLanguage,
   getEditorTheme,
+  getLanguageFromFile,
   getSyntaxHighlight,
   useCombinedRefs,
 } from "./utils";
@@ -152,7 +153,8 @@ export const CodeMirror = React.forwardRef<CodeMirrorRef, CodeMirrorProps>(
       }
     }, [initMode, isIntersecting]);
 
-    const langSupport = getCodeMirrorLanguage(filePath, fileType);
+    const languageExtension = getLanguageFromFile(filePath, fileType);
+    const langSupport = getCodeMirrorLanguage(languageExtension);
     const highlightTheme = getSyntaxHighlight(theme);
 
     const syntaxHighlightRender = useSyntaxHighlight({
@@ -376,7 +378,7 @@ export const CodeMirror = React.forwardRef<CodeMirrorRef, CodeMirrorProps>(
           <pre
             ref={combinedRef}
             className={classNames(
-              c("cm", editorState),
+              c("cm", editorState, languageExtension),
               cmClassName,
               tokensClassName
             )}
@@ -408,7 +410,7 @@ export const CodeMirror = React.forwardRef<CodeMirrorRef, CodeMirrorProps>(
           filePath ? `Code Editor for ${getFileName(filePath)}` : `Code Editor`
         }
         className={classNames(
-          c("cm", editorState),
+          c("cm", editorState, `language-${languageExtension}`),
           cmClassName,
           editorClassName,
           tokensClassName
