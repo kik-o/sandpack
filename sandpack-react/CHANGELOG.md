@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0-alpha.0](https://github.com/codesandbox/sandpack/compare/v1.0.1-alpha.0...v1.1.0-alpha.0) (2022-01-26)
+
+
+### Features
+
+* **codeeditor:** include language extension ([e74817a](https://github.com/codesandbox/sandpack/commit/e74817a11ebfc4e7dc947a6a689d985c69b19e0d))
+
+
+
+
+
 ## [1.0.1-alpha.0](https://github.com/codesandbox/sandpack/compare/v0.13.5...v1.0.1-alpha.0) (2022-01-26)
 
 
