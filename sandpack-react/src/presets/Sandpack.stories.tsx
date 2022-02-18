@@ -1,4 +1,7 @@
 import React from "react";
+import { SandpackCodeEditor } from "../components";
+import { SandpackProvider } from "../contexts/sandpackContext";
+import { useSandpack } from "../hooks";
 
 import { Sandpack } from "./Sandpack";
 
@@ -163,5 +166,24 @@ export const InitModeUserVisible: React.FC = () => {
         );
       })}
     </>
+  );
+};
+
+const DirtyListener = () => {
+  const { sandpack } = useSandpack();
+  return (
+    <>
+      <button onClick={sandpack.resetAllFiles}>reset</button>
+      {sandpack.editorState}
+    </>
+  );
+};
+
+export const DirtyEditor: React.FC = () => {
+  return (
+    <SandpackProvider>
+      <DirtyListener />
+      <SandpackCodeEditor />
+    </SandpackProvider>
   );
 };
